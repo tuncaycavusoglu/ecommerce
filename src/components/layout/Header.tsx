@@ -1,9 +1,6 @@
-import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
-  const { totalItems, openCart } = useCart();
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/80 border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,35 +18,11 @@ export default function Header() {
           </Link>
 
           {/* Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="flex items-center gap-8">
             <Link to="/" className="text-slate-500 hover:text-violet-600 text-sm font-medium transition-colors">
               Ana Sayfa
             </Link>
-            <a href="#products" className="text-slate-500 hover:text-violet-600 text-sm font-medium transition-colors">
-              Ürünler
-            </a>
           </nav>
-
-          {/* Cart Button */}
-          <button
-            onClick={openCart}
-            className="relative flex items-center gap-2 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 transition-all duration-300 group cursor-pointer"
-            id="cart-button"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-slate-500 group-hover:text-violet-600 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="9" cy="21" r="1" />
-              <circle cx="20" cy="21" r="1" />
-              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-            </svg>
-            <span className="text-sm text-slate-500 group-hover:text-violet-600 transition-colors hidden sm:inline">
-              Sepet
-            </span>
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 flex items-center justify-center text-[10px] sm:text-xs font-bold text-white shadow-lg shadow-violet-500/30 animate-bounce-once">
-                {totalItems}
-              </span>
-            )}
-          </button>
         </div>
       </div>
     </header>

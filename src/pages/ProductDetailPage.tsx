@@ -5,11 +5,9 @@ import { categories } from '../mocks/products';
 import ColorSelector from '../components/product/ColorSelector';
 import SizeSelector from '../components/product/SizeSelector';
 import StockBadge from '../components/product/StockBadge';
-import { useCart } from '../context/CartContext';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { addToCart } = useCart();
 
   const product = products.find((p) => p.id === id);
 
@@ -25,7 +23,6 @@ export default function ProductDetailPage() {
 
   const [selectedColor, setSelectedColor] = useState(uniqueColors[0]?.color || '');
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
-  const [addedToCart, setAddedToCart] = useState(false);
 
   const categoryName = useMemo(() => {
     if (!product) return '';
@@ -61,24 +58,6 @@ export default function ProductDetailPage() {
   const handleColorChange = (color: string) => {
     setSelectedColor(color);
     setSelectedSize(null);
-    setAddedToCart(false);
-  };
-
-  const handleAddToCart = () => {
-    if (!product || !selectedVariant) return;
-    addToCart({
-      productId: product.id,
-      variantId: selectedVariant.id,
-      productName: product.name,
-      brand: product.brand,
-      color: selectedVariant.color,
-      size: selectedVariant.size,
-      price: product.basePrice,
-      quantity: 1,
-      imageUrl: selectedVariant.imageUrl,
-    });
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 2000);
   };
 
   const priceFormatted = product
@@ -204,7 +183,6 @@ export default function ProductDetailPage() {
                 selectedSize={selectedSize}
                 onSizeSelect={(size) => {
                   setSelectedSize(size);
-                  setAddedToCart(false);
                 }}
               />
             </div>
@@ -216,32 +194,8 @@ export default function ProductDetailPage() {
               </div>
             )}
 
-            {/* Add to Cart Button */}
-            <button
-              onClick={handleAddToCart}
-              disabled={!selectedVariant || selectedVariant.stockQuantity === 0}
-              className={`w-full py-4 rounded-xl font-semibold text-base transition-all duration-300 cursor-pointer ${
-                !selectedVariant
-                  ? 'bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed'
-                  : selectedVariant.stockQuantity === 0
-                  ? 'bg-red-50 text-red-400 border border-red-200 cursor-not-allowed'
-                  : addedToCart
-                  ? 'bg-emerald-50 text-emerald-600 border border-emerald-200'
-                  : 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-[1.02] active:scale-[0.98]'
-              }`}
-              id="add-to-cart-button"
-            >
-              {!selectedVariant
-                ? 'Lütfen Renk ve Numara Seçin'
-                : selectedVariant.stockQuantity === 0
-                ? '🚫 Stokta Yok'
-                : addedToCart
-                ? '✓ Sepete Eklendi!'
-                : '🛒 Sepete Ekle'}
-            </button>
-
             {/* Extra Info */}
-            <div className="grid grid-cols-3 gap-3 mt-6 sm:mt-8">
+            <div className="grid grid-cols-3 gap-3 mt-2 sm:mt-4">
               {[
                 { icon: '🚚', label: 'Ücretsiz Kargo' },
                 { icon: '🔄', label: '14 Gün İade' },

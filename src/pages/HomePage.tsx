@@ -1,4 +1,3 @@
-import CategoryFilter from '../components/category/CategoryFilter';
 import ProductGrid from '../components/product/ProductGrid';
 
 export default function HomePage() {
@@ -31,8 +30,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-slate-500 text-base sm:text-lg md:text-xl max-w-xl mx-auto lg:mx-0 mb-8 sm:mb-12 leading-relaxed">
-                Erkek, kadın ve çocuk ayakkabılarında premium koleksiyonumuzla
-                tarzınızı tamamlayın. Kalite, konfor ve şıklığın buluştuğu tek adres.
+                Premium koleksiyonumuzla tarzınızı tamamlayın. Kalite, konfor ve şıklığın buluştuğu tek adres.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -45,12 +43,6 @@ export default function HomePage() {
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
-                </a>
-                <a
-                  href="#products"
-                  className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-white text-slate-600 hover:text-violet-600 font-semibold border border-slate-200 hover:border-violet-300 transition-all duration-300 hover:bg-violet-50 shadow-sm"
-                >
-                  Yeni Sezon
                 </a>
               </div>
             </div>
@@ -71,16 +63,12 @@ export default function HomePage() {
       </section>
 
       {/* Products Section */}
-      <section id="products" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <section id="products" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10">
           <div>
             <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">Ürünlerimiz</h2>
             <p className="text-slate-500 text-sm mt-1">Kaliteli ayakkabılarda en iyi fırsatlar</p>
           </div>
-        </div>
-
-        <div className="mb-8">
-          <CategoryFilter />
         </div>
 
         <ProductGrid />

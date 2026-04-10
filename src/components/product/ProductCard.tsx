@@ -1,7 +1,5 @@
-import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import type { ShoeProduct } from '../../types';
-import ColorSelector from './ColorSelector';
 
 interface ProductCardProps {
   product: ShoeProduct;
@@ -9,22 +7,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, index }: ProductCardProps) {
-  const uniqueColors = useMemo(() => {
-    const map = new Map<string, string>();
-    product.variants.forEach((v) => map.set(v.color, v.colorHexCode));
-    return Array.from(map.entries()).map(([color, colorHexCode]) => ({
-      color,
-      colorHexCode,
-    }));
-  }, [product.variants]);
-
-  const [selectedColor, setSelectedColor] = useState(uniqueColors[0]?.color || '');
-
-  const currentImage = useMemo(() => {
-    const variant = product.variants.find((v) => v.color === selectedColor);
-    return variant?.imageUrl || product.variants[0]?.imageUrl || '';
-  }, [product.variants, selectedColor]);
-
   const priceFormatted = new Intl.NumberFormat('tr-TR', {
     style: 'currency',
     currency: 'TRY',
@@ -41,7 +23,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       <Link to={`/product/${product.id}`} className="block relative overflow-hidden">
         <div className="aspect-square bg-gradient-to-br from-slate-50 to-gray-100 p-6 sm:p-8 flex items-center justify-center">
           <img
-            src={currentImage}
+            src={product.imageUrl}
             alt={product.name}
             className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 group-hover:rotate-[-5deg] drop-shadow-lg"
           />
@@ -66,17 +48,9 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           </span>
         </div>
 
-        <div className="pt-1">
-          <ColorSelector
-            colors={uniqueColors}
-            selectedColor={selectedColor}
-            onColorSelect={setSelectedColor}
-          />
-        </div>
-
         <Link
           to={`/product/${product.id}`}
-          className="block w-full text-center py-2.5 rounded-xl bg-slate-50 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 text-slate-600 hover:text-white text-sm font-medium border border-slate-200 hover:border-transparent transition-all duration-300"
+          className="mt-4 block w-full text-center py-2.5 rounded-xl bg-slate-50 hover:bg-gradient-to-r hover:from-violet-500 hover:to-fuchsia-500 text-slate-600 hover:text-white text-sm font-medium border border-slate-200 hover:border-transparent transition-all duration-300"
         >
           Detayları İncele
         </Link>

@@ -1,8 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products } from '../mocks/products';
-import { categories } from '../mocks/products';
-import ColorSelector from '../components/product/ColorSelector';
+import { products, categories } from '../mocks/products';
 import SizeSelector from '../components/product/SizeSelector';
 import StockBadge from '../components/product/StockBadge';
 
@@ -11,17 +9,6 @@ export default function ProductDetailPage() {
 
   const product = products.find((p) => p.id === id);
 
-  const uniqueColors = useMemo(() => {
-    if (!product) return [];
-    const map = new Map<string, string>();
-    product.variants.forEach((v) => map.set(v.color, v.colorHexCode));
-    return Array.from(map.entries()).map(([color, colorHexCode]) => ({
-      color,
-      colorHexCode,
-    }));
-  }, [product]);
-
-  const [selectedColor, setSelectedColor] = useState(uniqueColors[0]?.color || '');
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
   const categoryName = useMemo(() => {
@@ -29,36 +16,10 @@ export default function ProductDetailPage() {
     return categories.find((c) => c.id === product.categoryId)?.name || '';
   }, [product]);
 
-  const currentImage = useMemo(() => {
-    if (!product) return '';
-    const variant = product.variants.find((v) => v.color === selectedColor);
-    return variant?.imageUrl || product.variants[0]?.imageUrl || '';
-  }, [product, selectedColor]);
-
-  const sizesForColor = useMemo(() => {
-    if (!product) return [];
-    const colorVariants = product.variants.filter((v) => v.color === selectedColor);
-    const uniqueSizes = Array.from(new Set(colorVariants.map((v) => v.size))).sort((a, b) => a - b);
-    return uniqueSizes.map((size) => {
-      const variant = colorVariants.find((v) => v.size === size);
-      return {
-        size,
-        inStock: (variant?.stockQuantity || 0) > 0,
-      };
-    });
-  }, [product, selectedColor]);
-
   const selectedVariant = useMemo(() => {
     if (!product || !selectedSize) return null;
-    return product.variants.find(
-      (v) => v.color === selectedColor && v.size === selectedSize
-    ) || null;
-  }, [product, selectedColor, selectedSize]);
-
-  const handleColorChange = (color: string) => {
-    setSelectedColor(color);
-    setSelectedSize(null);
-  };
+    return product.variants.find((v) => v.size === selectedSize) || null;
+  }, [product, selectedSize]);
 
   const priceFormatted = product
     ? new Intl.NumberFormat('tr-TR', {
@@ -104,35 +65,10 @@ export default function ProductDetailPage() {
           <div className="relative">
             <div className="aspect-square bg-gradient-to-br from-slate-50 to-gray-100 rounded-3xl p-8 sm:p-12 flex items-center justify-center border border-slate-100 overflow-hidden group">
               <img
-                key={currentImage}
-                src={currentImage}
+                src={product.imageUrl}
                 alt={product.name}
                 className="w-full h-full object-contain drop-shadow-lg transition-all duration-700 group-hover:scale-105 animate-fade-in"
               />
-            </div>
-
-            {/* Thumbnail strip */}
-            <div className="flex gap-3 mt-4">
-              {uniqueColors.map(({ color, colorHexCode }) => {
-                const img = product.variants.find((v) => v.color === color)?.imageUrl;
-                return (
-                  <button
-                    key={color}
-                    onClick={() => handleColorChange(color)}
-                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-slate-50 p-2 border transition-all duration-300 cursor-pointer ${
-                      selectedColor === color
-                        ? 'border-violet-400 shadow-lg shadow-violet-500/20'
-                        : 'border-slate-200 hover:border-slate-300'
-                    }`}
-                  >
-                    <img src={img} alt={color} className="w-full h-full object-contain" />
-                    <div
-                      className="w-2 h-2 rounded-full mx-auto mt-1"
-                      style={{ backgroundColor: colorHexCode }}
-                    />
-                  </button>
-                );
-              })}
             </div>
           </div>
 
@@ -157,19 +93,6 @@ export default function ProductDetailPage() {
               {product.description}
             </p>
 
-            {/* Color Selection */}
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-slate-800 text-sm font-semibold">Renk Seçin</span>
-                <span className="text-slate-400 text-xs">{selectedColor}</span>
-              </div>
-              <ColorSelector
-                colors={uniqueColors}
-                selectedColor={selectedColor}
-                onColorSelect={handleColorChange}
-              />
-            </div>
-
             {/* Size Selection */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-3">
@@ -179,7 +102,7 @@ export default function ProductDetailPage() {
                 )}
               </div>
               <SizeSelector
-                sizes={sizesForColor}
+                sizes={product.variants.map((v) => ({ size: v.size, inStock: v.stockQuantity > 0 }))}
                 selectedSize={selectedSize}
                 onSizeSelect={(size) => {
                   setSelectedSize(size);

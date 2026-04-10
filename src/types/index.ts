@@ -1,11 +1,8 @@
-// Varyant (Renk, Numara, Stok ve Görsel)
+// Varyant (Sadece Numara)
 export interface ShoeVariant {
   id: string;
-  color: string;           // Örn: "Kırmızı"
-  colorHexCode: string;    // Örn: "#FF0000" (UI'da renk dairesi göstermek için)
   size: number;            // Örn: 42
   stockQuantity: number;   // Örn: 5 (Bu varyanta ait stok)
-  imageUrl: string;        // Bu renge ait ayakkabı görseli
 }
 
 // Ana Ürün Modeli
@@ -16,7 +13,8 @@ export interface ShoeProduct {
   categoryId: string;      // Kategori referansı
   basePrice: number;
   description: string;
-  variants: ShoeVariant[]; // Ürüne ait tüm varyant kombinasyonları
+  imageUrl: string;        // Ürüne ait görsel
+  variants: ShoeVariant[]; // Ürüne ait stok numaraları
 }
 
 // Kategori Modeli

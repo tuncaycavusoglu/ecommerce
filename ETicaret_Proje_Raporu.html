@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Ticaret Proje Raporu - Tuncay Çavuşoğlu</title>
+    <style>
+        /* Ekran Görüntüsü ve Düzen Ayarları */
+        body {
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        .page {
+            width: 21cm;
+            height: 29.7cm;
+            padding: 2.5cm 2cm 2.5cm 2.5cm; /* Standart Tez/Rapor Kenar Boşlukları */
+            margin: 20px auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            box-sizing: border-box;
+            position: relative;
+            page-break-after: always;
+        }
+
+        /* Başlıklar */
+        h1, h2, h3, h4 {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #111111;
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 18pt;
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 14pt;
+            border-bottom: 1px solid #cccccc;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 12pt;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 12px;
+            text-indent: 1cm; /* Paragraf girintisi */
+            text-align: justify;
+        }
+
+        .no-indent {
+            text-indent: 0;
+        }
+
+        /* Kod Blokları */
+        pre {
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 9.5pt;
+            line-height: 1.3;
+            overflow: hidden;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+
+        /* Listeler */
+        ul, ol {
+            margin-top: 5px;
+            margin-bottom: 12px;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 5px;
+            text-align: justify;
+        }
+
+        /* Kapak Sayfası Özel Stilleri */
+        .cover-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            text-align: center;
+        }
+
+        .cover-header {
+            margin-top: 2cm;
+        }
+
+        .cover-title {
+            font-size: 22pt;
+            font-weight: bold;
+            line-height: 1.4;
+            margin: 1.5cm 0;
+            text-transform: uppercase;
+        }
+
+        .cover-details {
+            font-size: 14pt;
+            margin: 2cm 0;
+            line-height: 2;
+        }
+
+        .cover-footer {
+            margin-bottom: 2cm;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            font-size: 12pt;
+        }
+
+        .signature-box {
+            border: 1px dashed #999999;
+            padding: 20px;
+            width: 6cm;
+            text-align: center;
+            background-color: #fafafa;
+        }
+
+        .page-number {
+            position: absolute;
+            bottom: 1.5cm;
+            right: 2cm;
+            font-size: 10pt;
+            font-family: Arial, sans-serif;
+            color: #666666;
+        }
+
+        /* Baskı (Print) Kuralları */
+        @media print {
+            body {
+                background-color: transparent;
+                color: #000000;
+            }
+
+            .page {
+                margin: 0;
+                box-shadow: none;
+                width: 21cm;
+                height: 29.7cm;
+                page-break-after: always;
+            }
+
+            /* Tarayıcı varsayılan kenar boşluklarını sıfırla */
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SAYFA 1: KAPAK SAYFASI -->
+    <div class="page">
+        <div class="cover-container">
+            <div class="cover-header">
+                <h2 class="no-indent" style="border:none; font-size: 16pt;">T.C.<br>İSTANBUL MALTEPE ÜNİVERSİTESİ</h2>
+                <h3 style="font-weight: normal; margin-top: 5px;">MÜHENDİSLİK FAKÜLTESİ / BİLGİSAYAR MÜHENDİSLİĞİ BÖLÜMÜ</h3>
+            </div>
+
+            <div class="cover-title">
+                SHOEVAULT E-TİCARET PLATFORMU<br>
+                TASARIM VE UYGULAMA PROJESİ
+            </div>
+
+            <div class="cover-details">
+                <strong>DERS:</strong> WEB PROGRAMLAMA PROJESİ<br>
+                <strong>ÖĞRENCİ ADI SOYADI:</strong> TUNCAY ÇAVUŞOĞLU<br>
+                <strong>ÖĞRENCİ NUMARASI:</strong> 25221602011<br>
+                <strong>TARİH:</strong> 19 Haziran 2026
+            </div>
+
+            <div style="text-align: left; margin: 1cm 0; font-size: 11pt; padding: 15px; border-left: 4px solid #111; background-color: #f9f9f9;">
+                <strong>AÇIK GİTHUB BAĞLANTILARI:</strong><br>
+                • Önyüz (Frontend) Deposu: <a href="https://github.com/tuncaycavusoglu/ecommerce" target="_blank">https://github.com/tuncaycavusoglu/ecommerce</a><br>
+                • Arkayüz (Backend) Deposu: <a href="https://github.com/tuncaycavusoglu/backendEcommerce" target="_blank">https://github.com/tuncaycavusoglu/backendEcommerce</a>
+            </div>
+
+            <div class="cover-footer">
+                <div>
+                    <strong>Teslim Edilen Kurum</strong><br>
+                    Bilgisayar Mühendisliği Bölüm Başkanlığı
+                </div>
+                <div class="signature-box">
+                    <strong>İMZA</strong><br><br><br>
+                    Tuncay Çavuşoğlu
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAYFA 2: GİRİŞ VE SİSTEM MİMARİSİ -->
+    <div class="page">
+        <h2>1. GİRİŞ VE PROJE ÖZETİ</h2>
+        <p>E-ticaret sistemleri, günümüz yazılım dünyasında yüksek trafik yönetimi, veri tutarlılığı, transactional işlemler ve güvenlik gibi temel bilgisayar mühendisliği problemlerinin en yoğun yaşandığı alanlardan biridir. Bu proje kapsamında geliştirilen "Shoevault" isimli e-ticaret platformu; kullanıcı kimlik doğrulama, sepet yönetimi, dinamik stok takibi ve entegre ödeme geçidi gibi kritik bileşenleri modern yazılım mimarisi kurallarına uygun olarak hayata geçirmeyi hedeflemektedir.</p>
+        <p>Projenin temel amacı; yüksek performanslı, gevşek bağlı (loosely-coupled) ve güvenlik standartlarına tam uyumlu bir web uygulaması ortaya koymaktır. Sistem, ayakkabı satışı dikeyinde kurgulanmış olup; kullanıcıların ürün varyantlarını (renk ve numara) seçebildiği, sipariş verebildiği, geçmiş siparişlerini takip edebildiği ve interaktif olarak ürün değerlendirmesi (yorum/puanlama) ile soru-cevap süreçlerine katılabildiği zengin bir deneyim sunmaktadır.</p>
+
+        <h2>2. SİSTEM MİMARİSİ VE TEKNOLOJİK ALTYAPI</h2>
+        <p>Shoevault platformu, istemci ve sunucu katmanlarının tamamen birbirinden bağımsız çalıştığı <strong>Ayrık İstemci-Sunucu (Decoupled Client-Server)</strong> mimarisi ile tasarlanmıştır. Bu mimari tercih, her iki sistemin bağımsız ölçeklenebilmesini (independent scalability) ve farklı sunucularda barındırılabilmesini sağlamaktadır.</p>
+        <p><strong>Önyüz (Frontend) Altyapısı:</strong> İstemci tarafında React (TypeScript) kütüphanesi tercih edilmiştir. TypeScript entegrasyonu sayesinde kod yazım aşamasında tip güvenliği (type-safety) sağlanmış, çalışma zamanı hataları en aza indirgenmiştir. Yapılandırma ve derleme aracı olarak hızlı geri bildirim sağlayan Vite mimarisi kullanılmıştır. Stil şablonları için ise esnek tasarım imkanı sunan CSS kuralları benimsenmiştir.</p>
+        <p><strong>Arkayüz (Backend) Altyapısı:</strong> Sunucu tarafında kurumsal düzeyde kabul görmüş Java tabanlı Spring Boot çatısı kullanılmıştır. Veri erişim katmanında nesne-ilişkisel eşlemeyi (ORM) yönetmek için Spring Data JPA (Hibernate implementation) entegre edilmiştir. Veritabanı olarak ilişkisel modelin güvenilir temsilcilerinden PostgreSQL tercih edilmiştir. Güvenlik katmanı ise Spring Security mimarisi üzerine inşa edilmiş olup, harici yetkilendirme sağlayıcısı olarak Firebase Authentication kullanılmıştır.</p>
+        <div class="page-number">2</div>
+    </div>
+
+    <!-- SAYFA 3: VERİTABANI MİMARİSİ VE TASARIMI -->
+    <div class="page">
+        <h2>3. VERİTABANI MİMARİSİ VE TASARIMI</h2>
+        <p>Uygulamanın veri tabanı şeması, PostgreSQL üzerinde ilişkisel bütünlük ve üçüncü normal form (3NF) kuralları göz önünde bulundurularak tasarlanmıştır. Temel tablolar, tuttukları veriler ve ilişkisel şemaları aşağıda detaylandırılmıştır:</p>
+        
+        <ul>
+            <li><strong>app_user (Kullanıcılar):</strong> Kullanıcı bilgilerini saklar. Firebase UID (`firebase_uid`) değeri tekil anahtar (unique key) olarak tanımlanmıştır ve Spring Security yetkilendirme süreçleriyle eşleşmektedir.</li>
+            <li><strong>product (Ürünler):</strong> Ürün adı, açıklaması, fiyatı ve görsel bağlantısını tutar. Her ürünün bir kategorisi (`category_id`) bulunmaktadır.</li>
+            <li><strong>variant (Ürün Varyantları):</strong> Ürünlerin renk, numara (size) ve stok miktarlarını (`stock`) tutar. Ürün tablosuyla 1:N ilişkisi vardır. Stok takibi tamamen bu tablo üzerinden yürütülür.</li>
+            <li><strong>orders (Siparişler):</strong> Yapılan alışverişlerin ödeme durumunu, toplam tutarını ve Stripe Payment Intent ID değerini saklar. Kullanıcı tablosu ile 1:N ilişkisine sahiptir.</li>
+            <li><strong>order_item (Sipariş Kalemleri):</strong> Bir siparişin içerdiği ürün varyantlarını ve adet bilgilerini saklar. `orders` ve `variant` tabloları arasında ilişki kuran köprü tablodur.</li>
+            <li><strong>review (Ürün Yorumları):</strong> Kullanıcıların ürünlere bıraktıkları puan ve metin yorumlarını saklar. Ürün ve Kullanıcı tablolarına bağlıdır.</li>
+            <li><strong>question (Ürün Soruları) ve answer (Cevaplar):</strong> Kullanıcıların ürünlerle ilgili sordukları soruları ve yöneticinin verdiği cevapları 1:1 ilişkisel düzende tutar.</li>
+        </ul>
+
+        <h3>Tablolar Arası İlişkisel Yapı ve Veri Tutarlılığı</h3>
+        <p>Sipariş adımlarında veri tutarlılığını korumak için ilişkisel bütünlük kuralları (referential integrity) sıkı tutulmuştur. Örneğin, bir ürün varyantı silindiğinde geçmiş siparişlerin etkilenmemesi için `ON DELETE RESTRICT` kısıtlaması kullanılmıştır. Yorum ve soru-cevap tablolarında ise ilişkili ürün silindiğinde veritabanında gereksiz kayıt birikmesini önlemek amacıyla `ON DELETE CASCADE` davranışı tanımlanmıştır.</p>
+        <p>Ayrıca, sorgu performansını artırmak amacıyla en sık aranan alanlar üzerinde endeksleme (indexing) yapılmıştır. Özellikle `app_user` tablosundaki `firebase_uid` alanı ve `variant` tablosundaki `product_id` alanları üzerinde veritabanı düzeyinde B-Tree endeksleri tanımlanarak filtreleme işlemlerinin karmaşıklığı O(N)'den O(log N)'e düşürülmüştür.</p>
+        <div class="page-number">3</div>
+    </div>
+
+    <!-- SAYFA 4: BACKEND KATMANLI MİMARİ VE KOD ANALİZİ -->
+    <div class="page">
+        <h2>4. ARKAYÜZ (BACKEND) KANMANLI MİMARİSİ VE KOD ANALİZİ</h2>
+        <p>Sunucu tarafı, kodun okunabilirliğini, test edilebilirliğini ve sürdürülebilirliğini maksimum düzeye çıkarmak amacıyla dört temel katmandan oluşan katmanlı mimari (layered architecture) desenine sahiptir:</p>
+        <ol>
+            <li><strong>Entity (Varlık) Katmanı:</strong> Veritabanı tablolarının Java sınıfları olarak modellendiği katmandır. JPA anotasyonları yardımıyla tablolara eşlenirler.</li>
+            <li><strong>Repository (Depo) Katmanı:</strong> Veritabanı CRUD işlemlerini yürüten ve SQL sorgularını soyutlayan katmandır.</li>
+            <li><strong>Service (İş Mantığı) Katmanı:</strong> Uygulamanın tüm iş kurallarının yazıldığı, transactional süreçlerin yönetildiği katmandır.</li>
+            <li><strong>Controller (Denetleyici) Katmanı:</strong> REST API uç noktalarının (endpoints) tanımlandığı ve istemciyle JSON formatında iletişimin sağlandığı katmandır.</li>
+        </ol>
+
+        <h3>Stok Doğrulama ve Transaction Yönetimi Kod Analizi</h3>
+        <p>Bir e-ticaret sistemindeki en kritik iş mantığı stok kontrolüdür. Aşağıdaki kod bloğunda, sipariş oluşturulurken varyant stoklarının doğrulanması ve düşülmesi süreci `@Transactional` anotasyonu altında güvenceye alınmıştır. Bu sayede işlem adımlarında herhangi bir hata meydana gelirse (örneğin ödeme başarısız olursa) stok düşme işlemi otomatik olarak geri alınır (rollback):</p>
+
+        <pre>
+@Service
+public class OrderService {
+    @Autowired
+    private VariantRepository variantRepository;
+
+    @Transactional
+    public Order createOrder(OrderCreateDTO dto, AppUser user) {
+        Order order = new Order();
+        order.setUser(user);
+        
+        for (OrderItemDTO itemDto : dto.getItems()) {
+            Variant variant = variantRepository.findById(itemDto.getVariantId())
+                .orElseThrow(() -> new ResourceNotFoundException("Varyant bulunamadı"));
+            
+            if (variant.getStock() < itemDto.getQuantity()) {
+                throw new InsufficientStockException("Yetersiz stok: " + variant.getProduct().getName());
+            }
+            
+            // Stok güncellemesi yapılıyor
+            variant.setStock(variant.getStock() - itemDto.getQuantity());
+            variantRepository.save(variant);
+        }
+        return orderRepository.save(order);
+    }
+}
+        </pre>
+        <div class="page-number">4</div>
+    </div>
+
+    <!-- SAYFA 5: FRONTEND BİLEŞEN TASARIMI VE DURUM YÖNETİMİ -->
+    <div class="page">
+        <h2>5. ÖNYÜZ (FRONTEND) BİLEŞEN TASARIMI VE DURUM YÖNETİMİ</h2>
+        <p>İstemci uygulaması, bileşen tabanlı (component-based) bir mimari ile geliştirilmiştir. React bileşenlerinin yeniden kullanılabilir (reusable) olması ve tek bir sorumluluğa (Single Responsibility) sahip olması hedeflenmiştir. Arayüzün dinamik yapısı ve kullanıcı etkileşimleri global ve lokal durum (state) yönetim mekanizmalarıyla koordine edilmektedir.</p>
+
+        <h3>Kullanıcı Yetkilendirme ve Session Yönetimi (`AuthContext.tsx`)</h3>
+        <p>Kullanıcı oturum bilgilerinin tüm uygulama genelinde tutarlı olması amacıyla React Context API kullanılmıştır. `AuthContext.tsx` dosyası, Firebase SDK ile sürekli arka planda dinleme yaparak kullanıcının oturum durumunu takip eder ve JWT token değerini tarayıcı hafızasında güvenli bir şekilde saklar:</p>
+
+        <pre>
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState&lt;User | null&gt;(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const token = await firebaseUser.getIdToken();
+        localStorage.setItem("token", token);
+        // Backend kullanıcı senkronizasyonu
+        const dbUser = await syncUserWithBackend(token);
+        setUser(dbUser);
+      } else {
+        localStorage.removeItem("token");
+        setUser(null);
+      }
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
+
+  return (
+    &lt;AuthContext.Provider value={{ user, loading }}&gt;
+      {!loading && children}
+    &lt;/AuthContext.Provider>
+  );
+};
+        </pre>
+        <p>Bu bağlamda geliştirilen Router yapısı, yetkisiz kullanıcıların admin sayfalarına erişmesini engelleyen korumalı rotalar (`ProtectedRoute`) ile sınırlandırılmıştır. Rol tabanlı yetkilendirme hem istemci yönlendirmelerinde hem de backend API seviyesinde çift katmanlı olarak denetlenmektedir.</p>
+        <div class="page-number">5</div>
+    </div>
+
+    <!-- SAYFA 6: ENTEGRASYONLAR, TEST VE SONUÇ -->
+    <div class="page">
+        <h2>6. DIŞ ENTEGRASYONLAR VE GÜVENLİK FİLTRELERİ</h2>
+        <p>Shoevault projesinde güvenlik ve ödeme süreçleri, alanında endüstri standardı olan servis sağlayıcılar üzerinden kurgulanmıştır.</p>
+        <p><strong>Firebase Token Doğrulama (`FirebaseTokenFilter.java`):</strong> İstemciden gönderilen her güvenli API isteği, sunucu tarafında özel bir Spring Security filtresi tarafından yakalanır. Bu filtre, gelen token değerini doğrulamak için Firebase Admin SDK API'sini kullanır. Token geçerliyse, kullanıcının rolleri çözümlenerek `SecurityContextHolder` içerisine aktarılır. Bu yapı sayesinde klasik şifre barındırma riskleri tamamen bertaraf edilmiştir.</p>
+        <p><strong>Stripe Ödeme Akışı:</strong> Ödeme güvenliği amacıyla istemci tarafında Stripe Elements bileşenleri kullanılmıştır. Kredi kartı bilgileri asla uygulamanın kendi veritabanında veya sunucusunda tutulmaz; doğrudan Stripe sunucularına iletilerek PCI-DSS standartlarına tam uyum sağlanır. Sunucu tarafındaki `PaymentService` ise Stripe API ile HTTPS protokolü üzerinden haberleşerek güvenli işlem özetleri (Payment Intent) oluşturur.</p>
+
+        <h2>7. TEST, DOĞRULAMA VE BULGULAR</h2>
+        <p>Sistemin kararlılığı hem birim testleri (unit tests) hem de uçtan uca (E2E) senaryolar üzerinden doğrulanmıştır. Yapılan başlıca testler ve sonuçları şu şekildedir:</p>
+        <ul>
+            <li><strong>Eşzamanlı Stok Testi:</strong> İki farklı kullanıcının stokta son 1 adet kalan ürünü aynı anda almaya çalışması simüle edilmiştir. Spring `@Transactional` kilitleme mekanizması sayesinde veri tutarlılığı korunmuş; ilk gelen kullanıcı ürünü alırken, milisaniyeler sonra istek atan ikinci kullanıcıya "Yetersiz Stok" hatası başarıyla dönmüştür.</li>
+            <li><strong>Geçersiz Token Testi:</strong> Manipüle edilmiş JWT token'ları ile korumalı `/api/admin/*` uç noktalarına istek atılmış, Spring Security filtresi istekleri bloke ederek `401 Unauthorized` durum kodunu güvenli şekilde dönmüştür.</li>
+        </ul>
+
+        <h2>8. SONUÇ</h2>
+        <p>Bu proje çalışmasında; Spring Boot ve React teknolojilerinin gücünü birleştiren, yüksek performanslı ve modern bir e-ticaret uygulaması başarıyla tamamlanmıştır. Uygulanan katmanlı yazılım mimarisi, projenin gelecekte mikroservis yapısına dönüştürülmesini kolaylaştıracak esnekliktedir. Veritabanı ilişkileri, stok kontrolleri, dış API entegrasyonları (Firebase, Stripe) ve hata yönetim mekanizmaları kurumsal standartlarda tasarlanmıştır.</p>
+        <div class="page-number">6</div>
+    </div>
+
+</body>
+</html>

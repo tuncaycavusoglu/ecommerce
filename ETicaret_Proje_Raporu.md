@@ -4,7 +4,7 @@
 
 ## ÖN YÜZ (KAPAK BİLGİLERİ)
 
-**Kurum:** T.C. İstanbul Maltepe Üniversitesi  
+**Kurum:** T.C. İstanbul Topkapı Üniversitesi  
 **Proje Başlığı:** Shoevault E-Ticaret Platformu Geliştirme Projesi  
 **Ders Adı:** Web Programlama Proje Ödevi  
 **Öğrenci Adı Soyadı:** Tuncay Çavuşoğlu  

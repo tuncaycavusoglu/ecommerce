@@ -29,6 +29,13 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-white/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Rating Badge */}
+        {product.averageRating !== undefined && product.averageRating > 0 && (
+          <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 rounded-lg bg-white/90 backdrop-blur-sm border border-slate-100 shadow-sm">
+            <svg className="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+            <span className="text-xs font-semibold text-slate-700">{product.averageRating.toFixed(1)}</span>
+          </div>
+        )}
       </Link>
 
       {/* Info */}

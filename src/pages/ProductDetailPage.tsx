@@ -1,20 +1,29 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { products, categories } from '../mocks/products';
+import { fetchProductById } from '../services/api';
+import { useCart } from '../context/CartContext';
 import SizeSelector from '../components/product/SizeSelector';
 import StockBadge from '../components/product/StockBadge';
+import ReviewList from '../components/review/ReviewList';
+import QuestionList from '../components/qa/QuestionList';
+import type { ShoeProduct } from '../types';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
-
-  const product = products.find((p) => p.id === id);
-
+  const { addToCart } = useCart();
+  const [product, setProduct] = useState<ShoeProduct | null>(null);
+  const [loading, setLoading] = useState(true);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const [addedToCart, setAddedToCart] = useState(false);
 
-  const categoryName = useMemo(() => {
-    if (!product) return '';
-    return categories.find((c) => c.id === product.categoryId)?.name || '';
-  }, [product]);
+  useEffect(() => {
+    if (!id) return;
+    setLoading(true);
+    fetchProductById(Number(id))
+      .then(setProduct)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, [id]);
 
   const selectedVariant = useMemo(() => {
     if (!product || !selectedSize) return null;
@@ -28,6 +37,30 @@ export default function ProductDetailPage() {
         minimumFractionDigits: 0,
       }).format(product.basePrice)
     : '';
+
+  const handleAddToCart = () => {
+    if (!product || !selectedVariant) return;
+    addToCart({
+      productId: product.id,
+      variantId: selectedVariant.id,
+      productName: product.name,
+      brand: product.brand,
+      size: selectedVariant.size,
+      price: product.basePrice,
+      quantity: 1,
+      imageUrl: product.imageUrl,
+    });
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <svg className="w-8 h-8 animate-spin text-violet-500" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" opacity="0.25"/><path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" fill="currentColor" opacity="0.75"/></svg>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -55,7 +88,7 @@ export default function ProductDetailPage() {
             Ana Sayfa
           </Link>
           <span>/</span>
-          <span className="text-slate-500">{categoryName}</span>
+          <span className="text-slate-500">{product.categoryName}</span>
           <span>/</span>
           <span className="text-slate-800 font-medium">{product.name}</span>
         </nav>
@@ -78,7 +111,7 @@ export default function ProductDetailPage() {
               <span className="px-3 py-1 rounded-lg bg-violet-100 border border-violet-200 text-violet-600 text-xs font-semibold uppercase tracking-wider">
                 {product.brand}
               </span>
-              <span className="text-slate-400 text-xs">{categoryName}</span>
+              <span className="text-slate-400 text-xs">{product.categoryName}</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-800 mb-3 sm:mb-4">{product.name}</h1>
@@ -87,6 +120,13 @@ export default function ProductDetailPage() {
               <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
                 {priceFormatted}
               </span>
+              {product.averageRating !== undefined && product.averageRating > 0 && (
+                <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-50 border border-amber-200">
+                  <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
+                  <span className="text-sm font-semibold text-amber-700">{product.averageRating.toFixed(1)}</span>
+                  <span className="text-xs text-amber-600">({product.reviewCount})</span>
+                </div>
+              )}
             </div>
 
             <p className="text-slate-500 text-sm sm:text-base leading-relaxed mb-8">
@@ -117,6 +157,19 @@ export default function ProductDetailPage() {
               </div>
             )}
 
+            {/* Sepete Ekle Butonu */}
+            <button
+              onClick={handleAddToCart}
+              disabled={!selectedVariant || selectedVariant.stockQuantity === 0}
+              className={`w-full py-4 rounded-xl font-semibold text-lg shadow-lg transition-all duration-300 cursor-pointer mb-6 ${
+                addedToCart
+                  ? 'bg-emerald-500 text-white shadow-emerald-500/25'
+                  : 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-[1.02] active:scale-[0.98]'
+              } disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100`}
+            >
+              {addedToCart ? '✓ Sepete Eklendi' : 'Sepete Ekle'}
+            </button>
+
             {/* Extra Info */}
             <div className="grid grid-cols-3 gap-3 mt-2 sm:mt-4">
               {[
@@ -135,6 +188,12 @@ export default function ProductDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Yorumlar */}
+        <ReviewList productId={product.id} />
+
+        {/* Soru & Cevap */}
+        <QuestionList productId={product.id} />
       </div>
     </main>
   );

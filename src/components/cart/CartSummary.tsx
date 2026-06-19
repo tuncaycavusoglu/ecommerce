@@ -1,13 +1,25 @@
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
 
 export default function CartSummary() {
   const { totalItems, totalPrice, clearCart } = useCart();
+  const { firebaseUser } = useAuth();
+  const navigate = useNavigate();
 
   const priceFormatted = new Intl.NumberFormat('tr-TR', {
     style: 'currency',
     currency: 'TRY',
     minimumFractionDigits: 0,
   }).format(totalPrice);
+
+  const handleCheckout = () => {
+    if (!firebaseUser) {
+      navigate('/login');
+    } else {
+      navigate('/checkout');
+    }
+  };
 
   return (
     <div className="space-y-4 pt-4 border-t border-slate-100">
@@ -29,6 +41,7 @@ export default function CartSummary() {
       </div>
 
       <button
+        onClick={handleCheckout}
         className="w-full py-3.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white font-semibold shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
         id="checkout-button"
       >
